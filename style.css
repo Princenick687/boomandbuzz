@@ -481,3 +481,42 @@ nav{
 
 
 }
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+}
+
+.logo img{
+
+    width:60px;
+
+    height:60px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:2px solid #ff2d55;
+
+}
+
+.logo h1{
+
+    margin:0;
+
+    color:#ff2d55;
+
+}
+
+.logo p{
+
+    margin:0;
+
+    color:#ccc;
+
+}
