@@ -1,0 +1,483 @@
+/* =====================================
+   BUZZ&BOOM STYLE
+===================================== */
+
+*{
+
+    box-sizing:border-box;
+
+    margin:0;
+
+    padding:0;
+
+    font-family:Arial, sans-serif;
+
+}
+
+
+body{
+
+    background:#0f0f0f;
+
+    color:white;
+
+}
+
+
+/* =====================================
+   HEADER
+===================================== */
+
+header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:20px 40px;
+
+    background:#111;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+
+    box-shadow:0 3px 10px rgba(0,0,0,.5);
+
+}
+
+
+.logo h1{
+
+    color:#ff2d55;
+
+    font-size:32px;
+
+}
+
+
+.logo p{
+
+    color:#ccc;
+
+    margin-top:5px;
+
+}
+
+
+nav{
+
+    display:flex;
+
+    gap:15px;
+
+}
+
+
+nav a,
+nav button{
+
+    text-decoration:none;
+
+    color:white;
+
+    background:#ff2d55;
+
+    border:none;
+
+    padding:12px 22px;
+
+    border-radius:8px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+
+nav a:hover,
+nav button:hover{
+
+    background:#ff5c7c;
+
+    transform:translateY(-2px);
+
+}
+
+
+
+/* =====================================
+   HERO
+===================================== */
+
+.hero{
+
+    text-align:center;
+
+    padding:80px 20px;
+
+    background:
+
+    linear-gradient(
+    rgba(0,0,0,.7),
+    rgba(0,0,0,.7)
+    ),
+
+    url("images/background.jpg");
+
+    background-size:cover;
+
+    background-position:center;
+
+}
+
+
+.hero h2{
+
+    font-size:45px;
+
+    color:#ff2d55;
+
+    margin-bottom:20px;
+
+}
+
+
+.hero p{
+
+    font-size:20px;
+
+    color:white;
+
+}
+
+
+
+/* =====================================
+   SECTIONS
+===================================== */
+
+section{
+
+    padding:50px 20px;
+
+}
+
+
+section h2{
+
+    text-align:center;
+
+    color:#ff2d55;
+
+    margin-bottom:30px;
+
+}
+
+
+
+/* =====================================
+   PRODUCTS
+===================================== */
+
+.products-grid{
+
+    display:grid;
+
+    grid-template-columns:
+
+    repeat(auto-fit,minmax(250px,1fr));
+
+    gap:25px;
+
+}
+
+
+.card{
+
+    background:#1b1b1b;
+
+    padding:20px;
+
+    border-radius:15px;
+
+    text-align:center;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.5);
+
+}
+
+
+.card img{
+
+    width:100%;
+
+    height:250px;
+
+    object-fit:cover;
+
+    border-radius:12px;
+
+}
+
+
+.card h3{
+
+    margin:15px 0;
+
+    color:white;
+
+}
+
+
+.card p{
+
+    color:#ccc;
+
+}
+
+
+.card h2{
+
+    color:#ff2d55;
+
+    margin:15px 0;
+
+}
+
+
+.card button{
+
+    background:#ff2d55;
+
+    color:white;
+
+    border:none;
+
+    padding:12px 25px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+}
+
+
+.card button:hover{
+
+    background:#ff5c7c;
+
+}
+
+
+
+/* =====================================
+   WHY US
+===================================== */
+
+.features{
+
+    display:grid;
+
+    grid-template-columns:
+
+    repeat(auto-fit,minmax(250px,1fr));
+
+    gap:20px;
+
+}
+
+
+.feature{
+
+    background:#1b1b1b;
+
+    padding:25px;
+
+    border-radius:15px;
+
+    text-align:center;
+
+}
+
+
+
+/* =====================================
+   CONTACT
+===================================== */
+
+.contact-section{
+
+    background:#151515;
+
+    text-align:center;
+
+}
+
+
+.contact-box{
+
+    max-width:600px;
+
+    margin:auto;
+
+    background:#222;
+
+    padding:30px;
+
+    border-radius:15px;
+
+}
+
+
+.contact-box p{
+
+    margin:15px;
+
+}
+
+
+.contact-box a{
+
+    color:#ff2d55;
+
+    text-decoration:none;
+
+    font-weight:bold;
+
+}
+
+
+
+/* =====================================
+   ADMIN
+===================================== */
+
+.admin-panel{
+
+    max-width:600px;
+
+    margin:auto;
+
+    background:#1b1b1b;
+
+    padding:30px;
+
+    border-radius:15px;
+
+}
+
+
+input,
+textarea{
+
+    width:100%;
+
+    padding:15px;
+
+    margin:10px 0;
+
+    background:#111;
+
+    color:white;
+
+    border:1px solid #444;
+
+    border-radius:8px;
+
+}
+
+
+textarea{
+
+    height:120px;
+
+}
+
+
+button{
+
+    cursor:pointer;
+
+}
+
+
+
+/* =====================================
+   CART
+===================================== */
+
+#cartItems{
+
+    display:grid;
+
+    grid-template-columns:
+
+    repeat(auto-fit,minmax(250px,1fr));
+
+    gap:20px;
+
+}
+
+
+
+/* =====================================
+   FOOTER
+===================================== */
+
+footer{
+
+    text-align:center;
+
+    background:#111;
+
+    padding:25px;
+
+    color:#aaa;
+
+}
+
+
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media(max-width:700px){
+
+
+header{
+
+    flex-direction:column;
+
+    gap:20px;
+
+}
+
+
+nav{
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+}
+
+
+.hero h2{
+
+    font-size:32px;
+
+}
+
+
+}

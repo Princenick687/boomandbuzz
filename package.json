@@ -1,0 +1,23 @@
+{
+  "name": "boomandbuzz",
+  "version": "1.0.0",
+  "description": "BUZZ&BOOM online store",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "ecommerce",
+    "online-store",
+    "buzzandboom"
+  ],
+  "author": "BUZZ&BOOM",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "multer": "^2.0.2"
+  }
+}
