@@ -6,7 +6,7 @@ const fs = require("fs");
 const path = require("path");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // =======================================
 // ADMIN LOGIN
@@ -20,7 +20,7 @@ const ADMIN_PASSWORD = "buzzboom123";
 // =======================================
 
 app.use(cors({
-    origin: "http://localhost:3000",
+    origin: true,
     credentials: true
 }));
 
@@ -393,7 +393,7 @@ app.listen(PORT, () => {
     console.log("");
     console.log("==================================");
     console.log("BUZZ&BOOM SERVER RUNNING");
-    console.log("http://localhost:3000");
+    console.log(`Running on port ${PORT}`);
     console.log("==================================");
     console.log("");
 

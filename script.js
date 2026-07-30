@@ -158,36 +158,34 @@ async function login() {
 
             method: "POST",
 
+            credentials: "include",
+
             headers: {
-
                 "Content-Type": "application/json"
-
             },
 
             body: JSON.stringify({
-
                 username,
                 password
-
             })
 
         });
 
         const result = await response.json();
 
-        if (result.success) {
+        if(result.success){
 
-            localStorage.setItem("adminLoggedIn", "true");
+            localStorage.setItem("adminLoggedIn","true");
 
             showDashboard();
 
-        } else {
+        }else{
 
             alert(result.message);
 
         }
 
-    } catch (error) {
+    }catch(error){
 
         console.error(error);
 
@@ -259,13 +257,15 @@ async function uploadProduct() {
 
     try {
 
-        const response = await fetch(API + "/product", {
+       const response = await fetch(API + "/product", {
 
-            method: "POST",
+    method:"POST",
 
-            body: formData
+    credentials:"include",
 
-        });
+    body:formData
+
+});
 
         const result = await response.json();
 
@@ -326,12 +326,13 @@ async function loadAdminProducts() {
 async function deleteProduct(id) {
 
     if (!confirm("Delete this product?")) return;
+await fetch(API + "/product/" + id, {
 
-    await fetch(API + "/product/" + id, {
+    method:"DELETE",
 
-        method: "DELETE"
+    credentials:"include"
 
-    });
+});
 
     loadAdminProducts();
     loadProducts();
@@ -431,39 +432,7 @@ async function editProduct(id){
     loadProducts();
 
 }
-function orderOnWhatsApp() {
 
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-    if (cart.length === 0) {
-        alert("Your cart is empty.");
-        return;
-    }
-
-    let message = "Hello BUZZ&BOOM,%0A%0AI'd like to place an order.%0A%0A";
-
-    let total = 0;
-
-    cart.forEach(product => {
-
-        message += "• " + product.name + " - KSh " + product.price + "%0A";
-
-        total += Number(product.price);
-
-    });
-
-    message += "%0A";
-    message += "Total: KSh " + total + "%0A%0A";
-    message += "Name:%0A";
-    message += "Delivery Location:%0A";
-    message += "Preferred Delivery Time:";
-
-    window.open(
-        "https://wa.me/254717848993?text=" + message,
-        "_blank"
-    );
-
-}
 // =====================================
 // ORDER VIA WHATSAPP
 // =====================================
