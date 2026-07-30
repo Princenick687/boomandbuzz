@@ -24,7 +24,6 @@ mongoose.connect(process.env.MONGODB_URI)
     console.error(err);
 
 });
-const express = require("express");
 const multer = require("multer");
 const cors = require("cors");
 const session = require("express-session");
