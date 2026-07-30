@@ -1,3 +1,29 @@
+require("dotenv").config();
+
+const express = require("express");
+const multer = require("multer");
+const cors = require("cors");
+const session = require("express-session");
+const mongoose = require("mongoose");
+const fs = require("fs");
+const path = require("path");
+
+const app = express();
+
+app.set("trust proxy", 1);
+
+const PORT = process.env.PORT || 3000;
+mongoose.connect(process.env.MONGODB_URI)
+.then(() => {
+
+    console.log("✅ MongoDB Connected");
+
+})
+.catch(err => {
+
+    console.error(err);
+
+});
 const express = require("express");
 const multer = require("multer");
 const cors = require("cors");
@@ -158,16 +184,19 @@ app.get("/session", (req, res) => {
 // =======================================
 // GET PRODUCTS
 // =======================================
+app.get("/products", async (req, res) => {
 
-app.get("/products", (req, res) => {
+    try{
 
-    const products = JSON.parse(
+        const products = await Product.find().sort({createdAt:-1});
 
-        fs.readFileSync(productsFile)
+        res.json(products);
 
-    );
+    }catch(err){
 
-    res.json(products);
+        res.status(500).json(err);
+
+    }
 
 });
 
@@ -187,19 +216,27 @@ app.post("/product", upload.array("images", 10), (req, res) => {
         });
 
     }
+const product = new Product({
 
-    let products = JSON.parse(
+    name:req.body.name,
 
-        fs.readFileSync(productsFile)
+    price:Number(req.body.price),
 
-    );
+    description:req.body.description,
 
-    const imagePaths = req.files.map(file => {
+    images:imagePaths
 
-        return "/uploads/" + file.filename;
+});
 
-    });
+await product.save();
 
+res.json({
+
+    success:true,
+
+    product
+
+});
     const product = {
 
         id: Date.now(),
@@ -240,127 +277,106 @@ app.post("/product", upload.array("images", 10), (req, res) => {
 // UPDATE PRODUCT
 // =======================================
 
-app.put("/product/:id", (req, res) => {
+app.put("/product/:id", async (req,res)=>{
 
-    if (!req.session.admin) {
+    if(!req.session.admin){
 
-        return res.status(401).json({
-
-            success: false
-
-        });
+        return res.status(401).json({success:false});
 
     }
 
-    const id = Number(req.params.id);
+    await Product.findByIdAndUpdate(
 
-    let products = JSON.parse(
+        req.params.id,
 
-        fs.readFileSync(productsFile)
+        {
 
-    );
+            name:req.body.name,
 
-    const index = products.findIndex(p => p.id === id);
+            price:Number(req.body.price),
 
-    if (index === -1) {
+            description:req.body.description
 
-        return res.status(404).json({
-
-            success: false,
-
-            message: "Product Not Found"
-
-        });
-
-    }
-
-    products[index].name = req.body.name;
-    products[index].price = req.body.price;
-    products[index].description = req.body.description;
-
-    fs.writeFileSync(
-
-        productsFile,
-
-        JSON.stringify(products, null, 2)
+        }
 
     );
 
     res.json({
 
-        success: true,
-
-        message: "Product Updated"
+        success:true
 
     });
 
 });
+const productSchema = new mongoose.Schema({
+
+    name: {
+        type: String,
+        required: true
+    },
+
+    price: {
+        type: Number,
+        required: true
+    },
+
+    description: {
+        type: String,
+        default: ""
+    },
+
+    images: {
+        type: [String],
+        default: []
+    },
+
+    createdAt: {
+
+        type: Date,
+
+        default: Date.now
+
+    }
+
+});
+
+const Product = mongoose.model("Product", productSchema);
 
 // =======================================
 // DELETE PRODUCT
 // =======================================
 
-app.delete("/product/:id", (req, res) => {
+app.delete("/product/:id", async(req,res)=>{
 
-    if (!req.session.admin) {
+    if(!req.session.admin){
 
-        return res.status(401).json({
-
-            success: false
-
-        });
+        return res.status(401).json({success:false});
 
     }
 
-    const id = Number(req.params.id);
+    const product = await Product.findById(req.params.id);
 
-    let products = JSON.parse(
+    if(product){
 
-        fs.readFileSync(productsFile)
+        product.images.forEach(image=>{
 
-    );
+            const file = path.join(__dirname,image);
 
-    const product = products.find(p => p.id === id);
+            if(fs.existsSync(file)){
 
-    if (!product) {
+                fs.unlinkSync(file);
 
-        return res.status(404).json({
-
-            success: false,
-
-            message: "Product Not Found"
+            }
 
         });
 
+        await Product.findByIdAndDelete(req.params.id);
+
     }
-
-    product.images.forEach(image => {
-
-        const file = path.join(__dirname, image);
-
-        if (fs.existsSync(file)) {
-
-            fs.unlinkSync(file);
-
-        }
-
-    });
-
-    products = products.filter(p => p.id !== id);
-
-    fs.writeFileSync(
-
-        productsFile,
-
-        JSON.stringify(products, null, 2)
-
-    );
 
     res.json({
 
-        success: true,
-
-        message: "Product Deleted"
+        success:true
 
     });
 

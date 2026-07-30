@@ -103,7 +103,7 @@ async function loadCart() {
 
             <p>KSh ${product.price}</p>
 
-            <button onclick="removeCart(${product.id})">
+            <button onclick="removeCart(${product._id})">
 
                 Remove
 
@@ -309,7 +309,7 @@ async function loadAdminProducts() {
 
             <p>KSh ${product.price}</p>
 
-            <button onclick="deleteProduct(${product.id})">
+            <button onclick="deleteProduct(${product._id})">
 
                 Delete
 

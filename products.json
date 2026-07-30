@@ -1,1 +1,5 @@
-[]
+const productsFile = path.join(__dirname, "products.json");
+
+if (!fs.existsSync(productsFile)) {
+    fs.writeFileSync(productsFile, "[]");
+}
