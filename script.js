@@ -3,7 +3,7 @@
 // script.js
 // =========================================
 
-const API = "http://localhost:3000";
+const API = window.location.origin;
 
 // =========================================
 // LOAD PRODUCTS
